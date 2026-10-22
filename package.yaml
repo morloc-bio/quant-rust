@@ -1,0 +1,16 @@
+name: quant-rust
+version: 0.1.0
+homepage: null
+synopsis: Transcript and gene abundance from fragment placements
+description: Fragment-length distribution, strandedness, equivalence classes, effective lengths, VBEM and tximport-style gene summaries, over the salmon 2.7.0 eqclass, model and infer crates.
+category: bioinformatics
+license: GPL-3.0
+author: "Zebulun Arendsee"
+maintainer: "z@morloc.io"
+github: null
+bug-reports: null
+rust-deps:
+  salmon-eqclass: "=2.7.0"
+  salmon-model: "=2.7.0"
+  salmon-infer: "=2.7.0"
+  salmon-core: "=2.7.0"

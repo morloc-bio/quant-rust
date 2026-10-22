@@ -1,0 +1,44 @@
+--' Rust implementation of the quant module
+module quant-rust (*)
+
+import quant
+import bio-rust
+
+record Rust => FragLenDist = "BqFragLenDist"
+record Rust => StrandCounts = "BqStrandCounts"
+record Rust => QuantModel = "BqQuantModel"
+record Rust => EqTable = "BqEqTable"
+record Rust => EmOpts = "BqEmOpts"
+record Rust => TxQuant = "BqTxQuant"
+record Rust => GeneQuant = "BqGeneQuant"
+data Rust => CountScaling = "BqCountScaling"
+
+source Rust from "quant.rs"
+  ( "bq_format_id" as formatId
+  , "bq_frag_len_dist" as fragLenDistWith
+  , "bq_merge_frag_len_dist" as mergeFragLenDist
+  , "bq_strand_counts" as strandCountsWith
+  , "bq_merge_strand_counts" as mergeStrandCounts
+  , "bq_strand_call" as strandCall
+  , "bq_quant_model" as quantModelWith
+  , "bq_eq_table" as eqTableWith
+  , "bq_merge_eq_table" as mergeEqTable
+  , "bq_quantify" as quantify
+  , "bq_gene_quant" as geneQuant
+  , "bq_scaled_counts" as scaledCounts
+  , "bq_salmon_meta_info" as salmonMetaInfo
+  , "bq_lib_format_counts" as libFormatCounts
+  , "bq_flen_dist" as flenDistText
+  , "bq_infer_experiment_text" as inferExperimentText
+  )
+
+-- Each takes `bioRustAnchor 0` so that bio-rust's types are compiled in.
+fragLenDistWith :: Int -> [FragHits] -> FragLenDist
+strandCountsWith :: Int -> [FragHits] -> StrandCounts
+quantModelWith :: Int -> Layout -> LibStrand -> FragLenDist -> [Int] -> QuantModel
+eqTableWith :: Int -> QuantModel -> [FragHits] -> EqTable
+
+fragLenDist xs = fragLenDistWith (bioRustAnchor 0) xs
+strandCounts xs = strandCountsWith (bioRustAnchor 0) xs
+quantModelFor l s d ls = quantModelWith (bioRustAnchor 0) l s d ls
+eqTable m xs = eqTableWith (bioRustAnchor 0) m xs

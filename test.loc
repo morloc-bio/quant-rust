@@ -1,0 +1,5 @@
+--' The quant test suite against quant-rust
+module test-quant-rust (test)
+
+import quant.test (test)
+import quant-rust
